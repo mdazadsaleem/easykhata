@@ -1,0 +1,37 @@
+abstract final class AppRoutes {
+  static const splash = '/';
+  static const onboarding = '/onboarding';
+  static const language = '/language';
+  static const login = '/login';
+  static const otp = '/otp';
+  static const businessSetup = '/business-setup';
+  static const main = '/main';
+  static const home = '/home';
+  static const customers = '/customers';
+  static const addCustomer = '/add-customer';
+  static const editCustomer = '/edit-customer';
+  static const customerDetails = '/customer-details';
+  static const addTransaction = '/add-transaction';
+  static const editTransaction = '/edit-transaction';
+  static const cashbook = '/cashbook';
+  static const addCashEntry = '/add-cash-entry';
+  static const editCashEntry = '/edit-cash-entry';
+  static const reports = '/reports';
+  static const statementPreview = '/statement-preview';
+  static const reminders = '/reminders';
+  static const addReminder = '/add-reminder';
+  static const notifications = '/notifications';
+  static const search = '/search';
+  static const profile = '/profile';
+  static const businessDetails = '/business-details';
+  static const settings = '/settings';
+  static const themeSettings = '/theme-settings';
+  static const appLock = '/app-lock';
+  static const backupRestore = '/backup-restore';
+  static const helpSupport = '/help-support';
+  static const faqs = '/faqs';
+  static const contactSupport = '/contact-support';
+  static const privacyPolicy = '/privacy-policy';
+  static const termsConditions = '/terms-conditions';
+  static const about = '/about';
+}

@@ -1,0 +1,111 @@
+import 'dart:convert';
+import '../core/utils/date_helpers.dart';
+
+class BusinessModel {
+  const BusinessModel({
+    required this.id,
+    required this.ownerId,
+    required this.businessName,
+    required this.ownerName,
+    this.businessType = 'Other',
+    this.phone = '',
+    this.address = '',
+    this.city = '',
+    this.logoUrl = '',
+    this.currency = 'PKR',
+    this.totalReceivable = 0,
+    this.totalPayable = 0,
+    this.cashBalance = 0,
+    this.totalCashIn = 0,
+    this.totalCashOut = 0,
+    this.createdAt,
+    this.updatedAt,
+  });
+  final String id,
+      ownerId,
+      businessName,
+      ownerName,
+      businessType,
+      phone,
+      address,
+      city,
+      logoUrl,
+      currency;
+  final double totalReceivable,
+      totalPayable,
+      cashBalance,
+      totalCashIn,
+      totalCashOut;
+  final DateTime? createdAt, updatedAt;
+  BusinessModel copyWith({
+    String? businessName,
+    String? ownerName,
+    String? logoUrl,
+    String? currency,
+    double? totalReceivable,
+    double? totalPayable,
+    double? cashBalance,
+    double? totalCashIn,
+    double? totalCashOut,
+  }) => BusinessModel(
+    id: id,
+    ownerId: ownerId,
+    businessName: businessName ?? this.businessName,
+    ownerName: ownerName ?? this.ownerName,
+    businessType: businessType,
+    phone: phone,
+    address: address,
+    city: city,
+    logoUrl: logoUrl ?? this.logoUrl,
+    currency: currency ?? this.currency,
+    totalReceivable: totalReceivable ?? this.totalReceivable,
+    totalPayable: totalPayable ?? this.totalPayable,
+    cashBalance: cashBalance ?? this.cashBalance,
+    totalCashIn: totalCashIn ?? this.totalCashIn,
+    totalCashOut: totalCashOut ?? this.totalCashOut,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
+  );
+  factory BusinessModel.fromMap(Map<String, dynamic> m, [String? id]) =>
+      BusinessModel(
+        id: id ?? m['id'] ?? '',
+        ownerId: m['ownerId'] ?? 'local_user',
+        businessName: m['businessName'] ?? '',
+        ownerName: m['ownerName'] ?? '',
+        businessType: m['businessType'] ?? 'Other',
+        phone: m['phone'] ?? '',
+        address: m['address'] ?? '',
+        city: m['city'] ?? '',
+        logoUrl: m['logoUrl'] ?? '',
+        currency: m['currency'] ?? 'PKR',
+        totalReceivable: (m['totalReceivable'] as num? ?? 0).toDouble(),
+        totalPayable: (m['totalPayable'] as num? ?? 0).toDouble(),
+        cashBalance: (m['cashBalance'] as num? ?? 0).toDouble(),
+        totalCashIn: (m['totalCashIn'] as num? ?? 0).toDouble(),
+        totalCashOut: (m['totalCashOut'] as num? ?? 0).toDouble(),
+        createdAt: parseDate(m['createdAt']),
+        updatedAt: parseDate(m['updatedAt']),
+      );
+  Map<String, dynamic> toMap() => {
+    'id': id,
+    'ownerId': ownerId,
+    'businessName': businessName,
+    'ownerName': ownerName,
+    'businessType': businessType,
+    'phone': phone,
+    'address': address,
+    'city': city,
+    'logoUrl': logoUrl,
+    'currency': currency,
+    'totalReceivable': totalReceivable,
+    'totalPayable': totalPayable,
+    'cashBalance': cashBalance,
+    'totalCashIn': totalCashIn,
+    'totalCashOut': totalCashOut,
+    'createdAt': createdAt?.toIso8601String(),
+    'updatedAt': updatedAt?.toIso8601String(),
+  };
+  factory BusinessModel.fromJson(String s) =>
+      BusinessModel.fromMap(jsonDecode(s));
+  String toJson() => jsonEncode(toMap());
+}
