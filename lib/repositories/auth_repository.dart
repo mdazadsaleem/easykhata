@@ -12,8 +12,6 @@ class LocalUser {
   final String? displayName;
   final String? email;
   final String? photoURL;
-
-  Future<void> delete() async {}
 }
 
 class AuthRepository {
@@ -23,5 +21,4 @@ class AuthRepository {
   LocalUser? get currentUser => const LocalUser();
 
   Future<void> signOut() async {}
-  Future<void> deleteAccount() async {}
 }

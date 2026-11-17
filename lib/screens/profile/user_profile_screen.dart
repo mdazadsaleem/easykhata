@@ -2,13 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../app/routes/app_routes.dart';
 import '../../models/user_model.dart';
 import '../../providers/business_providers.dart';
-import '../../providers/app_providers.dart';
 import '../../providers/profile_providers.dart';
 
 const _blue = Color(0xFF173EB5);
@@ -63,14 +60,6 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
             fontWeight: FontWeight.w800,
           ),
         ),
-        actions: [
-          TextButton.icon(
-            onPressed: action.isSaving || action.isUploading ? null : _logout,
-            icon: const Icon(Icons.logout_rounded, size: 16),
-            label: const Text('Logout'),
-            style: TextButton.styleFrom(foregroundColor: Colors.white),
-          ),
-        ],
       ),
       body: profile.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -288,34 +277,6 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
           : ref.read(profileActionProvider).error ?? 'Profile update failed.',
       error: !success,
     );
-  }
-
-  Future<void> _logout() async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text('Log out?'),
-        content: const Text('You will need to sign in again to continue.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext, false),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(dialogContext, true),
-            style: FilledButton.styleFrom(backgroundColor: _red),
-            child: const Text('Logout'),
-          ),
-        ],
-      ),
-    );
-    if (confirmed != true || !mounted) return;
-    try {
-      await ref.read(authRepositoryProvider).signOut();
-      if (mounted) context.go(AppRoutes.login);
-    } catch (error) {
-      if (mounted) _message(_errorMessage(error), error: true);
-    }
   }
 
   void _message(String value, {bool error = false}) {
